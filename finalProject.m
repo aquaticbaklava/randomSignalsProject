@@ -4,11 +4,11 @@
 % Description:
 % On Digital Filtering for Noise Reduction in Audio Samples
 
-% Step 1: Load the original WAV files
+% Step 1: Load the original WAV files without noise
 [cleanWoman, fs_cw] = audioread('lucia_clean.wav');
 [cleanMan, fs_cm] = audioread('cody_clean.wav');
 
-% Step 2: Play the original WAV file
+% Step 2: Play the original WAV file without noise
 playSignal(cleanWoman, fs_cw, 'cleanWoman')
 
 % Step 3: Add Gaussian noise to the cleanWoman signal
@@ -18,5 +18,5 @@ gaussianSignal = addGaussianNoise(cleanWoman);
 playSignal(gaussianSignal, fs_cw, 'gaussianWoman');
 
 % Step 5: Save the noise-added audio to a new file
-audiowrite('gaussianWoman.wav', gaussianSignal, fs_cw); % Saves as 'gaussianWoman.wav'
+audiowrite('gaussianWoman.wav', gaussianSignal, fs_cw);
 disp('Noise-added WAV file saved as "gaussianWoman.wav".');
