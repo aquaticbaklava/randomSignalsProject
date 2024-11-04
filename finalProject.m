@@ -20,3 +20,37 @@ playSignal(gaussianSignal, fs_cw, 'gaussianWoman');
 % Step 5: Save the noise-added audio to a new file
 audiowrite('gaussianWoman.wav', gaussianSignal, fs_cw);
 disp('Noise-added WAV file saved as "gaussianWoman.wav".');
+
+% repeat steps 3-5 for other noises
+%% Rayleigh
+% step 3: Add Rayleigh noise to signals
+rayleighWoman = addRayleighNoise(cleanWoman);
+rayleighMan = addRayleighNoise(cleanMan);
+
+% step 4: Play the noise-added WAV file
+playSignal(rayleighWoman, fs_cw, 'rayleighWoman');
+playSignal(rayleighMan, fs_cm, 'rayleighMan');
+
+% step 5: Save the noise-added audios to new files
+audiowrite('rayleighWoman.wav',rayleighWoman,fs_cw);
+disp('Noise-added WAV file saved as "rayleighWoman.wav".');
+
+audiowrite('rayleighMan.wav',rayleighMan,fs_cm);
+disp('Noise-added WAV file saved as "rayleighWoman.wav".');
+
+%% plot comparisons
+figure(300);
+subplot(2,1,1);
+plot(cleanWoman);
+title("Clean audio sample (woman)");
+subplot(2,1,2);
+plot(rayleighWoman);
+title("Noisy audio sample (woman)");
+
+figure(301);
+subplot(2,1,1);
+plot(cleanMan);
+title("Clean audio sample (man)");
+subplot(2,1,2);
+plot(rayleighMan);
+title("Noisy audio sample (man)");
