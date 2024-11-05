@@ -57,7 +57,7 @@ plot(rayleighMan);
 title("Noisy audio sample (man)");
 
 % repeat steps 3-5 for traffic noises
-trafficWoman = addTrafficNoise(cleanWoman);
+trafficWoman = addTrafficNoise(cleanWoman, fs_cw);
 
 % step 4: Play the noise-added WAV file
 playSignal(trafficWoman, fs_cw, 'trafficWoman');
