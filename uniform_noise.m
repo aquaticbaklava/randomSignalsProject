@@ -1,15 +1,21 @@
 %% Uniform noise removal
 [signal, fs] = audioread('lucia_clean.wav'); % load in audio sample
+signal = signal(:,1);
 
 % FIGURE: original audio sample
 figure;
-plot(signal(:,1));
+plot(signal);
 title('Original Audio Sample');
-audio_sample = audioplayer(signal(:,1), fs);
+audio_sample = audioplayer(signal, fs);
 playblocking(audio_sample);
 
 %% Adding Noise
-U = max(abs(signal), [], 'all')*(rand(length(signal),1) - 0.5); % generate uniform noise
+snr_ideal = 10; % in dB
+P_noise = snr_noise(snr_ideal, signal, 'U');
+
+U = P_noise*rand(length(signal),1); % generate uniform noise
+snr_actual = snr(signal,U);
+disp(snr_actual);
 
 % FIGURE: uniform noise
 figure;
