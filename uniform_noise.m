@@ -32,23 +32,10 @@ noisy_audio_sample = audioplayer(noisy_signal, fs);
 playblocking(noisy_audio_sample);
 
 %% Removing Noise
-signal_lpf = bandpass(noisy_signal,[10, 500],fs);
+recovered_signal = lpf_averaging(noisy_signal);
 
 figure;
-plot(signal(:,1));
-hold on
-plot(signal_lpf);
-title('Original vs LPF')
-
-playblocking(audioplayer(signal_lpf,fs));
-
-% signal_removed = remove_uniform_noise(noisy_signal, fs); % remove noise from audio sample
-% 
-% function signal_clean = remove_uniform_noise(signal, fs)
-% % signal: noisy signal with uniform noise
-% % fs: sampling frequency of audio sample
-% 
-% 
-% 
-% 
-% end
+plot(recovered_signal);
+title('Linear Low-Pass Average Filter');
+recovered_audio_sample = audioplayer(recovered_signal, fs);
+playblocking(recovered_audio_sample);
