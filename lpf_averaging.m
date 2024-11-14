@@ -12,11 +12,5 @@ for s = (1:samps)+3 % actual image
 end
 rec_sig = rec_sig(1+3:end-3);
 
-figure;
-plot(rec_sig);
-title('Linear Low-Pass Average Filter');
-recovered_audio_sample = audioplayer(rec_sig, fs);
-playblocking(recovered_audio_sample);
-
 end
 
