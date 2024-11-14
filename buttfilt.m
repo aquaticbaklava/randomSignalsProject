@@ -1,5 +1,5 @@
-function filteredSig = buttfilt(noisySig,cleanSig)
-    wp = max(cleanSig(:,1))/pi;
+function filteredSig = buttfilt(noisySig,snr)
+    wp = max(noisySig(:,1))/pi;
     ws = 0.2/pi;
     rp =1;
     rs = 30;
