@@ -11,7 +11,7 @@ function noisySignal = addGaussianNoise(signal, snr_ideal)
 
     % FIGURE: gaussian noise
     figure;
-    plot(noise);
+    histogram(noise, 'normalization','pdf');
     title('Gaussian Noise');
 
     noisySignal = signal + noise;

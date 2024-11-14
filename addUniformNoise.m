@@ -8,7 +8,7 @@ function noisy_signal = addUniformNoise(signal, snr_ideal)
     
     % FIGURE: uniform noise
     figure;
-    plot(U);
+    histogram(U, 'normalization', 'pdf');
     title('Uniform Noise');
     
     noisy_signal = signal + U; % add noise to audio sample
