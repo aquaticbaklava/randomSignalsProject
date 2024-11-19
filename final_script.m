@@ -5,6 +5,7 @@
 % Lucia audio sample
 [signal_l, fs] = audioread('lucia_clean.wav'); % load in audio sample
 signal_l = signal_l(:,1); % one dimensional array
+% singal_l = signal_l / max(signal_l);
 
 % FIGURE: original audio sample
 figure;
@@ -16,6 +17,7 @@ playblocking(audio_sample);
 % Cody audio sample
 [signal_c, fs] = audioread('cody_clean.wav'); % load in audio sample
 signal_c = signal_c(:,1); % one dimensional array
+singal_c = signal_c / max(signal_c);
 
 % FIGURE: original audio sample
 figure;
@@ -37,8 +39,7 @@ for as = 1:2
     err_g = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addGaussianNoise(signal, snr_ideal);
-        snr_actual_g(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_g(s)] = addGaussianNoise(signal, snr_ideal);
        
         % FIGURE: noisy audio sample
         figure;
@@ -49,8 +50,7 @@ for as = 1:2
         
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lpf(noisy_signal, snr_actual_g(s));
         err_g(s,1) = rmse(signal, lpf_recovery);
     
         figure;
@@ -60,8 +60,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
         
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bsf(noisy_signal,snr_actual_g(s));
         err_g(s,2) = rmse(signal, bsf_recovery);
 
         figure;
@@ -81,7 +80,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_g(s));
         err_g(s,4) = rmse(signal, btw_recovery);
 
         figure;
@@ -96,8 +95,7 @@ for as = 1:2
     err_u = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addUniformNoise(signal, snr_ideal);
-        snr_actual_u(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_u(s)]  = addUniformNoise(signal, snr_ideal);
         
         % FIGURE: noisy audio sample
         figure;
@@ -108,8 +106,7 @@ for as = 1:2
         
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lowpass(noisy_signal, snr_actual_u(s));
         err_u(s,1) = rmse(signal, lpf_recovery);
 
         figure;
@@ -119,8 +116,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
     
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bandstop(noisy_signal,snr_actual_u(s));
         err_u(s,2) = rmse(signal, bsf_recovery);
 
         figure;
@@ -140,7 +136,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_u(s));
         err_u(s,4) = rmse(signal, btw_recovery);
         
         figure;
@@ -155,8 +151,7 @@ for as = 1:2
     err_e = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addUniformNoise(signal, snr_ideal);
-        snr_actual_e(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_e(s)] = addExponentialNoise(signal, snr_ideal);
         
         % FIGURE: noisy audio sample
         figure;
@@ -167,8 +162,7 @@ for as = 1:2
         
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lowpass(noisy_signal, snr_actual_e(s));
         err_e(s,1) = rmse(signal, lpf_recovery);
 
         figure;
@@ -178,8 +172,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
     
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bandstop(noisy_signal,snr_actual_e(s));
         err_e(s,2) = rmse(signal, bsf_recovery);
 
         figure;
@@ -199,7 +192,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_e(s));
         err_e(s,4) = rmse(signal, btw_recovery);
 
         figure;
@@ -214,8 +207,7 @@ for as = 1:2
     err_r = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addUniformNoise(signal, snr_ideal);
-        snr_actual_r(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_r(s)] = addRayleighNoise(signal, snr_ideal);
 
         % FIGURE: noisy audio sample
         figure;
@@ -226,8 +218,7 @@ for as = 1:2
 
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lowpass(noisy_signal, snr_actual_r(s));
         err_r(s,1) = rmse(signal, lpf_recovery);
     
         figure;
@@ -237,8 +228,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
 
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bandstop(noisy_signal,snr_actual_r(s));
         err_r(s,2) = rmse(signal, bsf_recovery);
         
         figure;
@@ -258,7 +248,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_r(s));
         err_r(s,4) = rmse(signal, btw_recovery);
         
         figure;
@@ -273,8 +263,7 @@ for as = 1:2
     err_t = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addUniformNoise(signal, snr_ideal);
-        snr_actual_t(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_t(s)] = addTrafficNoise(signal, snr_ideal);
         
         % FIGURE: noisy audio sample
         figure;
@@ -285,8 +274,7 @@ for as = 1:2
         
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lowpass(noisy_signal, snr_actual_t(s));
         err_t(s,1) = rmse(signal, lpf_recovery);
 
         figure;
@@ -296,8 +284,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
     
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bandstop(noisy_signal,snr_actual_t(s));
         err_t(s,2) = rmse(signal, bsf_recovery);
 
         figure;
@@ -317,7 +304,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_t(s));
         err_t(s,4) = rmse(signal, btw_recovery);
         
         figure;
@@ -332,8 +319,7 @@ for as = 1:2
     err_b = zeros(3,4); % rows: snr | col: rmse
     for s = 1:3
         snr_ideal = s*5;
-        noisy_signal = addUniformNoise(signal, snr_ideal);
-        snr_actual_b(s) = snr(signal, noisy_signal);
+        [noisy_signal, snr_actual_b(s)] = addBackgroundNoise(signal, snr_ideal);
 
         % FIGURE: noisy audio sample
         figure;
@@ -344,8 +330,7 @@ for as = 1:2
     
         % Removing Noise
         % lowpass filter
-        wpass;
-        lpf_recovery = lowpass(noisy_signal, wpass);
+        lpf_recovery = lowpass(noisy_signal, snr_actual_b(s));
         err_b(s,1) = rmse(signal, lpf_recovery);
 
         figure;
@@ -355,8 +340,7 @@ for as = 1:2
         playblocking(lpf_audio_sample);
     
         % bandstop filter
-        wpass;
-        bsf_recovery = bandstop(noisy_signal,wpass);
+        bsf_recovery = bandstop(noisy_signal,snr_actual_b(s));
         err_b(s,2) = rmse(signal, bsf_recovery);
 
         figure;
@@ -376,7 +360,7 @@ for as = 1:2
         playblocking(laf_audio_sample);
     
         % butterworth filter
-        btw_recovery = buttfilt(noisy_signal,snr_actual);
+        btw_recovery = buttfilt(noisy_signal,snr_actual_b(s));
         err_b(s,4) = rmse(signal, btw_recovery);
          
         figure;
