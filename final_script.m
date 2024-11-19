@@ -47,7 +47,7 @@ for as = 1:2
         title('Gaussian Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('gaussian_noise.wav',noisy_signal,fs);
+        audiowrite(['gaussian_noise_',num2str(s),'.wav'],noisy_signal,fs);
         
         % Removing Noise
         % lowpass filter
@@ -59,7 +59,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('gaussian_lpf.wav',lpf_recovery,fs);
+        audiowrite('gaussian_lpf_',num2str(s),'.wav',lpf_recovery,fs);
         
         % bandstop filter
         bsf_recovery = bsf(noisy_signal,snr_actual_g(s));
@@ -70,7 +70,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('gaussian_bsf.wav',bsf_recovery,fs);
+        audiowrite('gaussian_bsf_',num2str(s),'.wav',bsf_recovery,fs);
     
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -81,7 +81,7 @@ for as = 1:2
         title('Linear Lowpass Averaging Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('gaussian_laf.wav',laf_recovery,fs);
+        audiowrite('gaussian_laf_',num2str(s),'.wav',laf_recovery,fs);
 
     
         % butterworth filter
@@ -93,7 +93,7 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('gaussian_btw.wav',btw_recovery,fs);
+        audiowrite('gaussian_btw_',num2str(s),'.wav',btw_recovery,fs);
 
     end
     
@@ -110,7 +110,7 @@ for as = 1:2
         title('Uniform Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('uniform_noise.wav',noisy_signal,fs);
+        audiowrite('uniform_noise_',num2str(s),'.wav',noisy_signal,fs);
 
         
         % Removing Noise
@@ -123,7 +123,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('uniform_lpf.wav',lpf_recovery,fs);
+        audiowrite('uniform_lpf_',num2str(s),'.wav',lpf_recovery,fs);
 
     
         % bandstop filter
@@ -135,7 +135,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('uniform_bsf.wav',bsf_recovery,fs);
+        audiowrite('uniform_bsf_',num2str(s),'.wav',bsf_recovery,fs);
     
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -146,7 +146,7 @@ for as = 1:2
         title('Linear Lowpass Averaging Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('uniform_laf.wav',laf_recovery,fs);
+        audiowrite('uniform_laf_',num2str(s),'.wav',laf_recovery,fs);
     
         % butterworth filter
         btw_recovery = buttfilt(noisy_signal,snr_actual_u(s));
@@ -157,7 +157,7 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('uniform_btw.wav',btw_recovery,fs);
+        audiowrite('uniform_btw_',num2str(s),'.wav',btw_recovery,fs);
     end
 
     %% Exponential Noise
@@ -173,7 +173,7 @@ for as = 1:2
         title('Exponential Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('exponential_noise.wav',noisy_signal,fs);
+        audiowrite('exponential_noise_',num2str(s),'.wav',noisy_signal,fs);
         
         % Removing Noise
         % lowpass filter
@@ -185,7 +185,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('exponential_lpf.wav',lpf_recovery,fs);
+        audiowrite('exponential_lpf_',num2str(s),'.wav',lpf_recovery,fs);
     
         % bandstop filter
         bsf_recovery = bandstop(noisy_signal,snr_actual_e(s));
@@ -196,7 +196,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('exponential_bsf.wav',bsf_recovery,fs);
+        audiowrite('exponential_bsf_',num2str(s),'.wav',bsf_recovery,fs);
     
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -207,7 +207,7 @@ for as = 1:2
         title('Linear Lowpass Averaging Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('exponential_laf.wav',laf_recovery,fs);
+        audiowrite('exponential_laf_',num2str(s),'.wav',laf_recovery,fs);
     
         % butterworth filter
         btw_recovery = buttfilt(noisy_signal,snr_actual_e(s));
@@ -218,7 +218,7 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('exponential_btw.wav',btw_recovery,fs);
+        audiowrite('exponential_btw_',num2str(s),'.wav',btw_recovery,fs);
     end
 
     %% Rayleigh Noise
@@ -234,7 +234,7 @@ for as = 1:2
         title('Rayleigh Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('rayleigh_noise.wav',noisy_signal,fs);
+        audiowrite('rayleigh_noise_',num2str(s),'.wav',noisy_signal,fs);
 
         % Removing Noise
         % lowpass filter
@@ -246,7 +246,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('rayleigh_lpf.wav',lpf_recovery,fs);
+        audiowrite('rayleigh_lpf_',num2str(s),'.wav',lpf_recovery,fs);
 
         % bandstop filter
         bsf_recovery = bandstop(noisy_signal,snr_actual_r(s));
@@ -257,7 +257,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('rayleigh_bsf.wav',bsf_recovery,fs);
+        audiowrite('rayleigh_bsf_',num2str(s),'.wav',bsf_recovery,fs);
 
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -268,7 +268,7 @@ for as = 1:2
         title('Linear Low-Pass Average Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('rayleigh_laf.wav',laf_recovery,fs);
+        audiowrite('rayleigh_laf_',num2str(s),'.wav',laf_recovery,fs);
     
         % butterworth filter
         btw_recovery = buttfilt(noisy_signal,snr_actual_r(s));
@@ -279,7 +279,7 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('rayleigh_btw.wav',btw_recovery,fs);
+        audiowrite('rayleigh_btw_',num2str(s),'.wav',btw_recovery,fs);
     end
 
     %% Traffic Noise
@@ -295,7 +295,7 @@ for as = 1:2
         title('Traffic Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('traffic_noise.wav',noisy_signal,fs);
+        audiowrite('traffic_noise_',num2str(s),'.wav',noisy_signal,fs);
         
         % Removing Noise
         % lowpass filter
@@ -307,8 +307,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('traffic_lpf.wav',lpf_recovery,fs);
-
+        audiowrite('traffic_lpf_',num2str(s),'.wav',lpf_recovery,fs);
     
         % bandstop filter
         bsf_recovery = bandstop(noisy_signal,snr_actual_t(s));
@@ -319,7 +318,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('traffic_bsf.wav',bsf_recovery,fs);
+        audiowrite('traffic_bsf_',num2str(s),'.wav',bsf_recovery,fs);
     
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -330,7 +329,7 @@ for as = 1:2
         title('Linear Low-Pass Average Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('traffic_laf.wav',laf_recovery,fs);
+        audiowrite('traffic_laf_',num2str(s),'.wav',laf_recovery,fs);
     
         % butterworth filter
         btw_recovery = buttfilt(noisy_signal,snr_actual_t(s));
@@ -341,7 +340,7 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('traffic_btw.wav',btw_recovery,fs);
+        audiowrite('traffic_btw_',num2str(s),'.wav',btw_recovery,fs);
     end
 
     %% Background Conversation Noise
@@ -357,7 +356,7 @@ for as = 1:2
         title('Background Conversation Noise Audio Sample');
         noisy_audio_sample = audioplayer(noisy_signal, fs);
         playblocking(noisy_audio_sample);
-        audiowrite('background_noise.wav',noisy_signal,fs);
+        audiowrite('background_noise_',num2str(s),'.wav',noisy_signal,fs);
     
         % Removing Noise
         % lowpass filter
@@ -369,7 +368,7 @@ for as = 1:2
         title('Lowpass Filter');
         lpf_audio_sample = audioplayer(lpf_recovery, fs);
         playblocking(lpf_audio_sample);
-        audiowrite('background_lpf.wav',lpf_recovery,fs);
+        audiowrite('background_lpf_',num2str(s),'.wav',lpf_recovery,fs);
     
         % bandstop filter
         bsf_recovery = bandstop(noisy_signal,snr_actual_b(s));
@@ -380,7 +379,7 @@ for as = 1:2
         title('Bandstop Filter');
         bsf_audio_sample = audioplayer(bsf_recovery, fs);
         playblocking(bsf_audio_sample);
-        audiowrite('background_bsf.wav',bsf_recovery,fs);
+        audiowrite('background_bsf_',num2str(s),'.wav',bsf_recovery,fs);
     
         % linear averaging filter
         laf_recovery = lpf_averaging(noisy_signal);
@@ -391,7 +390,7 @@ for as = 1:2
         title('Linear Low-Pass Average Filter');
         laf_audio_sample = audioplayer(laf_recovery, fs);
         playblocking(laf_audio_sample);
-        audiowrite('background_laf.wav',laf_recovery,fs);
+        audiowrite('background_laf_',num2str(s),'.wav',laf_recovery,fs);
     
         % butterworth filter
         btw_recovery = buttfilt(noisy_signal,snr_actual_b(s));
@@ -402,6 +401,6 @@ for as = 1:2
         title('Butterworth Filter');
         btw_audio_sample = audioplayer(btw_recovery, fs);
         playblocking(btw_audio_sample);
-        audiowrite('background_btw.wav',btw_recovery,fs);
+        audiowrite('background_btw_',num2str(s),'.wav',btw_recovery,fs);
     end
 end
