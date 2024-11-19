@@ -1,6 +1,7 @@
 function filteredSig = buttfilt(noisySig,snr)
     wp = max(noisySig(:,1))/pi;
-    ws = 0.2/pi;
+    % use snr to get adaptive ws
+    ws = 0.45/pi/snr;
     rp =1;
     rs = 30;
     [n,Wn]=buttord(wp,ws,rp,rs);
