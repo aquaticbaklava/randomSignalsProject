@@ -1,7 +1,7 @@
 % ECE 5523: Random Signals - Final Project
 % Function to add Gaussian Noise
 
-function [noisy_signal, ratio] = addUniformNoise(signal, snr_ideal)
+function [noisy_signal, ratio] = addUniformNoise(signal, snr_ideal, fs)
     P_noise = snr_noise(snr_ideal, signal, 'U');
     
     U = P_noise*rand(length(signal),1); % generate uniform noise
@@ -15,6 +15,8 @@ function [noisy_signal, ratio] = addUniformNoise(signal, snr_ideal)
     plot([min(U), max(U)],[avgHeight, avgHeight], 'LineWidth',2, 'Color', 'r')
     title('Uniform Noise');
     
+    plotSpectrum(U,fs,"Frequency Spectrum for Uniform Noise")
+
     ratio = snr(signal, U);
     noisy_signal = signal + U; % add noise to audio sample
 end

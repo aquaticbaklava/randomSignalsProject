@@ -20,6 +20,8 @@ function noisySignal = addConversationNoise(signal, fs_s)
     start_index = randi([1, len_tn - len_s + 1]);
     conversationNoise_added = conversationNoise(start_index:start_index + len_s - 1, :);
 
+    plotSpectrum(conversationNoise,fs_s,"Frequency Spectrum for Conversation Noise")
+
     % Add the noise segment to cleanWoman
     noisySignal = signal + conversationNoise_added;
 
