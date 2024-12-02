@@ -6,5 +6,6 @@ function plotSpectrum(cleanSignal, fs, titleWords)
     plot(freq,freqSignal(:,1));
     xlabel("Frequency (Hz)");
     ylabel("Power Spectrum Density");
-    title(titleWords)
+    title(titleWords);
+    xlim([-1500 1500]);
 end
